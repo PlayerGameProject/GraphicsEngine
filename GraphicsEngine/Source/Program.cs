@@ -1,12 +1,37 @@
-﻿using System;
+﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
 
-namespace GraphicsEngine
+namespace GraphicsEngine.Source
 {
-    public class Engine
+    public class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!\n");
+            var nativeWindowSettings = new NativeWindowSettings
+            {
+                API = ContextAPI.OpenGL,
+                Profile = ContextProfile.Core,
+                ClientSize = new Vector2i(640, 480),
+                Vsync = VSyncMode.Adaptive,
+                Title = "Graphics Engine",
+                WindowState = WindowState.Normal,
+                WindowBorder = WindowBorder.Resizable,
+                Flags = ContextFlags.ForwardCompatible,
+            };
+
+            using (Engine engine = new Engine(GameWindowSettings.Default, nativeWindowSettings))
+            {
+                try
+                {
+                    engine.Run();
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine($"[Error] {exception.Message}\n");
+                    Console.WriteLine($"Error Stack Trace: {exception.StackTrace}");
+                }
+            }
         }
     }
 }
