@@ -3,4 +3,4 @@
     <img src="https://img.shields.io/badge/license-MIT-blue" alt=License></img>
 </div>
 
-Graphics Engine made in C# using [OpenTK]​(https://github.com/opentk/opentk)​
+Graphics Engine made in C# using [OpenTK](https://github.com/opentk/opentk)​
