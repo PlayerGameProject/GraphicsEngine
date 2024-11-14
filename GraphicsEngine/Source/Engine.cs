@@ -250,14 +250,14 @@ namespace GraphicsEngine.Source
 	            {
 		            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
 		            Console.WriteLine($"[Debug] Wireframe rendering: Enabled");
-		            await Wait(75);
+		            Wait(75);
 		            _wireframe = false;
 	            }
 	            else
 	            {
 		            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 		            Console.WriteLine($"[Debug] Wireframe rendering: Disabled");
-		            await Wait(75);
+		            Wait(75);
 		            _wireframe = true;
 	            }
             }
