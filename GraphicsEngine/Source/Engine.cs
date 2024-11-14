@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Reflection;
+using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -12,73 +13,73 @@ namespace GraphicsEngine.Source
     {
         private readonly float[] _vertices = new float[]
         {
-            // Position           // Color           // Texture
-	        -1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Front Face Top Left
-	         1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Front Face Top Right
-	         1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Front Face Bottom Right
-	        -1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Front Face Bottom Left
-	         			   
-	        -1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Right Face Top Left
-	        -1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Right Face Top Right
-	        -1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Right Face Bottom Right
-	        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // Right Face Bottom Left
-	         			   
-	         1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  // Back Face Top Left
-	        -1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Back Face Top Right
-	        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  1.0f, 0.0f,  // Back Face Bottom Right
-	         1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Back Face Bottom Left
-	         			   
-	         1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Left Face Top Left
-	         1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Left Face Top Right
-	         1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Left Face Bottom Right
-	         1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Left Face Bottom Left
-	         			   
-	        -1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Top Face Top Left
-	         1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Top Face Top Right
-	         1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Top Face Bottom Right
-	        -1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // Top Face Bottom Left
-	         			   
-	        -1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Bottom Face top Left
-	         1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 1.0f,  // Bottom Face top Right
-	         1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Bottom Face Bottom Right
-	        -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f   // Bottom Face Bottom Left
+   			// Position           // Color           // Texture
+			-1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Front Face Top Left
+			 1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Front Face Top Right
+			 1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Front Face Bottom Right
+			-1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Front Face Bottom Left
+			 			   
+			-1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Right Face Top Left
+			-1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Right Face Top Right
+			-1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Right Face Bottom Right
+			-1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // Right Face Bottom Left
+			 			   
+			 1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  // Back Face Top Left
+			-1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Back Face Top Right
+			-1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  1.0f, 0.0f,  // Back Face Bottom Right
+			 1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Back Face Bottom Left
+			 			   
+			 1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Left Face Top Left
+			 1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Left Face Top Right
+			 1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Left Face Bottom Right
+			 1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Left Face Bottom Left
+			 			   
+			-1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Top Face Top Left
+			 1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Top Face Top Right
+			 1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Top Face Bottom Right
+			-1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // Top Face Bottom Left
+			 			   
+			-1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Bottom Face top Left
+			 1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 1.0f,  // Bottom Face top Right
+			 1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Bottom Face Bottom Right
+			-1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f   // Bottom Face Bottom Left
         };
 
         private readonly uint[] _indices = new uint[]
         {
-            // Front Face
-	         0,  1,  3,
-	         1,  2,  3,
-
-	        // Right Face
-	         4,  5,  7,
-	         5,  6,  7,
-
-	        // Back Face
-	         8,  9, 11,
-	         9, 10, 11,
-            
-	        // Left Face
-	        12, 13, 15,
-	        13, 14, 15,
-            
-	        // Top Face
-	        16, 17, 19,
-	        17, 18, 19,
-            
-	        // Bottom Face
-	        20, 21, 23,
-	        21, 22, 23
+   			// Front Face
+			 0,  1,  3,
+			 1,  2,  3,
+   			
+			// Right Face
+			 4,  5,  7,
+			 5,  6,  7,
+   			
+			// Back Face
+			 8,  9, 11,
+			 9, 10, 11,
+   			
+			// Left Face
+			12, 13, 15,
+			13, 14, 15,
+   			
+			// Top Face
+			16, 17, 19,
+			17, 18, 19,
+   			
+			// Bottom Face
+			20, 21, 23,
+			21, 22, 23
         };
 
         private readonly string[] _texturePath = new string[]
         {
-	        EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-	        EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-	        EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-	        EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-	        EngineDirectory + "/Resource/Texture/Grass Texture Top.png",
-	        EngineDirectory + "/Resource/Texture/Grass Texture Bottom.png"
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Top.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Bottom.png"
         };
 
         private int _vertexArrayObject;
@@ -92,6 +93,8 @@ namespace GraphicsEngine.Source
         private bool _firstMove = true;
         private Vector2 _lastPos;
         private double _time;
+
+        private bool _wireframe = true;
         
         private static readonly string? Location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         private static readonly string? EngineDirectory = Directory.GetParent(path: Directory.GetParent(path: Directory.GetParent(Location).FullName).FullName).FullName;
@@ -150,16 +153,14 @@ namespace GraphicsEngine.Source
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GL.BindVertexArray(_vertexArrayObject);
-            
             _texture.Activate(TextureUnit.Texture0);
             _shader.Activate();
 
-            var model = Matrix4.Identity;
+            var model = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(0f, 0f, 0f)) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
             _shader.SetMatrix4("Model", model);
             _shader.SetMatrix4("View", _camera.GetViewMatrix());
-            _shader.SetMatrix4("Projection", _camera.GetProjectionMatrix());
+            _shader.SetMatrix4("Projection", _camera.GetPerspectiveProjectionMatrix());
             
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 			GL.DrawElementsInstanced(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0, 1);
             
             SwapBuffers();
@@ -243,6 +244,23 @@ namespace GraphicsEngine.Source
                     _ => WindowState.Fullscreen
                 };
             }
+            if (KeyboardState.IsKeyDown(Keys.F3))
+            {
+	            if (_wireframe == true)
+	            {
+		            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+		            Console.WriteLine($"[Debug] Wireframe rendering: Enabled");
+		            await Wait(75);
+		            _wireframe = false;
+	            }
+	            else
+	            {
+		            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+		            Console.WriteLine($"[Debug] Wireframe rendering: Disabled");
+		            await Wait(75);
+		            _wireframe = true;
+	            }
+            }
         }
 
         protected override void OnFramebufferResize(FramebufferResizeEventArgs args)
@@ -252,6 +270,7 @@ namespace GraphicsEngine.Source
             GL.Viewport(0, 0, args.Width, args.Height);
 
             _camera.AspectRatio = Size.X / (float)Size.Y;
+            _camera._size = new Vector2(Size.X, Size.Y);
         }
 
         protected override void OnUnload()
@@ -270,6 +289,11 @@ namespace GraphicsEngine.Source
             Console.WriteLine("\n" + " -- Graphics Engine process ended! -- ");
 
             base.OnUnload();
+        }
+
+        private async Task Wait(int milliseconds)
+        {
+	        await Task.Delay(milliseconds);
         }
     }
 }

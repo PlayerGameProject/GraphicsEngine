@@ -11,12 +11,15 @@ namespace GraphicsEngine.Source
 
         private float _pitch;
         private float _yaw = -MathHelper.PiOver2;
+
+        public Vector2 _size;
         
         public Camera(Vector3 position, float aspectRatio)
         {
             Position = position;
             AspectRatio = aspectRatio;
         }
+        
         private float _fov = MathHelper.PiOver2;
 
         public Vector3 Position;
@@ -65,9 +68,14 @@ namespace GraphicsEngine.Source
             return Matrix4.LookAt(Position, Position + _front, _up);
         }
 
-        public Matrix4 GetProjectionMatrix()
+        public Matrix4 GetPerspectiveProjectionMatrix()
         {
             return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.01f, 1000f);
+        }
+
+        public Matrix4 GetOrthographicProjectionMatrix() // This function has a bug which we don't know where or how
+        {
+            return Matrix4.CreateOrthographic(_size.X, _size.Y, 0.01f, 1000f);
         }
 
         private void UpdateVectors()
