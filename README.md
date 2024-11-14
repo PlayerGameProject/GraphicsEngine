@@ -3,4 +3,5 @@
     <img src="https://img.shields.io/badge/license-MIT-blue" alt=License></img>
 </div>
 
-Graphics Engine made in C# using [OpenTK](https://github.com/opentk/opentk)​
+Graphics Engine is a graphics rendering engine that supports rendering 3 Dimensional openGL graphics and user input. Made in C# using [OpenTK](https://github.com/opentk/opentk).
+
