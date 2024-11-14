@@ -1,0 +1,4 @@
+CONTRIBUTORS
+
+This project wouldn't be possible without:
+- The dev team
