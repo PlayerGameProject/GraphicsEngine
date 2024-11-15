@@ -9,92 +9,84 @@ namespace GraphicsEngine.Source
 {
     public class Texture
     {
-        public readonly int Handle;
-        public static int[] Handles;
-        public TextureTarget Type { get; private set; }
+        public int Handle;
+        public static TextureTarget Type;
 
-        public static Texture LoadFromFile(string path)
+        public static int[] Handles;
+
+        public void LoadFile(string path, TextureTarget textureType, TextureUnit unit)
         {
-            int handle = GL.GenTexture();
-            
-            GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.Texture2D, handle);
-            
+            Handle = GL.GenTexture();
+            Type = textureType;
+
+            GL.ActiveTexture(unit);
+            GL.BindTexture(textureType, Handle);
+
             StbImage.stbi_set_flip_vertically_on_load(1);
 
             using (Stream stream = File.OpenRead(path))
             {
                 ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
-                
-                GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
+                GL.TexImage2D(textureType, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
             }
-            
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Nearest);
-            
+
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.NearestMipmapLinear);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
-            
+
             GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-            
-            return new Texture(handle);
         }
-        
-        public uint[] LoadFromFile(string[] path, int textureCount)
+
+        public static int[] LoadFile(string[] path, int textureCount, TextureTarget textureType, TextureUnit unit)
         {
-            uint[] handles = new uint[textureCount];
-            uint[] textures = new uint[textureCount];
-            
-            GL.GenTextures(textureCount, handles);
+            Handles = new int[textureCount];
+            Type = textureType;
+            GL.GenTextures(textureCount, Handles);
 
             for (int i = 0; i < textureCount; i++)
             {
+                GL.ActiveTexture(unit);
+                GL.BindTexture(textureType, Handles[i]);
+                
                 StbImage.stbi_set_flip_vertically_on_load(1);
 
                 using (Stream stream = File.OpenRead(path[i]))
                 {
                     ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
-                    
-                    GL.ActiveTexture(TextureUnit.Texture0);
-                    GL.BindTexture(TextureTarget.Texture2D, Handles[i]);
-                    
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter,
-                        (int)TextureMinFilter.Nearest);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter,
-                        (int)TextureMinFilter.Nearest);
-
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS,
-                        (int)TextureWrapMode.Repeat);
-                    GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT,
-                        (int)TextureWrapMode.Repeat);
-
-                    GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0,
-                        PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
-                    GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+                    GL.TexImage2D(textureType, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, image.Data);
                 }
 
-                GL.BindTexture(TextureTarget.Texture2D, 0);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.NearestMipmapLinear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+
+                GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
             }
 
-            return handles;
+            return Handles;
         }
 
-        public Texture(int handle)
+        public void TextureUnit(Shader shader, string uniform, uint unit)
         {
-            Handle = handle;
+            int textureUniform = GL.GetUniformLocation(shader.Handle, uniform);
+            shader.Activate();
+            GL.Uniform1(textureUniform, unit);
         }
 
-        public Texture(int[] handles)
+        public void Bind()
         {
-            Handles = handles;
+            GL.BindTexture(Type, Handle);
         }
 
-        public void Activate(TextureUnit unit)
+        public void Unbind()
         {
-            GL.ActiveTexture(unit);
-            GL.BindTexture(TextureTarget.Texture2D, Handle);
-        } 
-        
+            GL.BindTexture(Type, 0);
+        }
+
         public void Delete()
         {
             GL.DeleteTexture(Handle);

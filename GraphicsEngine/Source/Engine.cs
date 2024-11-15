@@ -88,12 +88,13 @@ namespace GraphicsEngine.Source
 
         private Shader _shader;
         private Texture _texture;
+        private int[] _textures;
         private Camera _camera;
 
         private bool _firstMove = true;
         private Vector2 _lastPos;
         private double _time;
-
+        
         private bool _wireframe = true;
         
         private static readonly string? Location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -132,9 +133,10 @@ namespace GraphicsEngine.Source
             
             _shader = new Shader(EngineDirectory + "/Source/Mesh.vert", EngineDirectory + "/Source/Mesh.frag");
             _shader.Activate();
-            
-            _texture = Texture.LoadFromFile(EngineDirectory + "/Resource/Texture/Texture.png");
-            _texture.Activate(TextureUnit.Texture0);
+
+            _texture = new Texture();
+            _textures = Texture.LoadFile(_texturePath, _texturePath.Length, TextureTarget.Texture2D, TextureUnit.Texture0);
+            _texture.TextureUnit(_shader, "Texture", 0);
 
             _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
             CursorState = CursorState.Grabbed;
@@ -153,15 +155,21 @@ namespace GraphicsEngine.Source
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             GL.BindVertexArray(_vertexArrayObject);
-            _texture.Activate(TextureUnit.Texture0);
+            _texture.Bind();
             _shader.Activate();
 
-            var model = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(0f, 0f, 0f)) * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
+            var model = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(0f, 0f, 0f)) 
+                                         * Matrix4.CreateScale(1f) 
+                                         * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
             _shader.SetMatrix4("Model", model);
             _shader.SetMatrix4("View", _camera.GetViewMatrix());
             _shader.SetMatrix4("Projection", _camera.GetPerspectiveProjectionMatrix());
-            
-			GL.DrawElementsInstanced(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0, 1);
+
+            for (int i = 0; i < _texturePath.Length; i++)
+            {
+	            GL.BindTexture(TextureTarget.Texture2D, _textures[i]);
+	            GL.DrawElementsInstanced(PrimitiveType.Triangles, 6, DrawElementsType.UnsignedInt, i * 6 * sizeof(uint), 1);
+            }
             
             SwapBuffers();
         }
@@ -175,8 +183,8 @@ namespace GraphicsEngine.Source
             if (!IsFocused) return;
 
             var input = KeyboardState;
-            float cameraSpeed = 3.75f * ((input.IsKeyDown(Keys.LeftShift)) ? 2.5f : 1);
-            const float sensitivity = 0.175f;
+            float cameraSpeed = 3.75f * (input.IsKeyDown(Keys.LeftShift) ? 2.5f : 1);
+            const float sensitivity = 0.15f;
 
             if (input.IsKeyDown(Keys.W))
             {

@@ -70,12 +70,12 @@ namespace GraphicsEngine.Source
 
         public Matrix4 GetPerspectiveProjectionMatrix()
         {
-            return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.01f, 1000f);
+            return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.001f, 1000f);
         }
 
         public Matrix4 GetOrthographicProjectionMatrix() // This function has a bug which we don't know where or how
         {
-            return Matrix4.CreateOrthographic(_size.X, _size.Y, 0.01f, 1000f);
+            return Matrix4.CreateOrthographic(_size.X, _size.Y, 0.001f, 1000f);
         }
 
         private void UpdateVectors()

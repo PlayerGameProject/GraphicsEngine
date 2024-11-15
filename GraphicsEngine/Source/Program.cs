@@ -1,4 +1,7 @@
-﻿using OpenTK.Mathematics;
+﻿using System.Drawing;
+using OpenTK.Mathematics;
+using OpenTK.Graphics;
+using OpenTK.Input;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
@@ -28,8 +31,8 @@ namespace GraphicsEngine.Source
                 }
                 catch (Exception exception)
                 {
-                    Console.WriteLine($"[Error] {exception.Message}\n");
-                    Console.WriteLine($"Error Stack Trace: {exception.StackTrace}");
+                    Console.WriteLine($"[Error] {exception.Message}\n" +
+                                      $"[Error] Stack Trace:{exception.StackTrace}\n");
                 }
             }
         }
