@@ -1,7 +1,8 @@
 using System.Drawing;
 using System.Reflection;
+using System.Threading.Channels;
 using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL4;
+using OpenTK.Graphics.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
@@ -74,12 +75,12 @@ namespace GraphicsEngine.Source
 
         private readonly string[] _texturePath = new string[]
         {
-			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Grass Texture Top.png",
-			EngineDirectory + "/Resource/Texture/Grass Texture Bottom.png"
+			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Stone Texture Top.png",
+			EngineDirectory + "/Resource/Texture/Stone Texture Bottom.png"
         };
 
         private int _vertexArrayObject;
@@ -138,12 +139,14 @@ namespace GraphicsEngine.Source
             _textures = Texture.LoadFile(_texturePath, _texturePath.Length, TextureTarget.Texture2D, TextureUnit.Texture0);
             _texture.TextureUnit(_shader, "Texture", 0);
 
-            _camera = new Camera(Vector3.UnitZ * 3, Size.X / (float)Size.Y);
+            _camera = new Camera(Vector3.UnitZ * 4, Size.X / (float)Size.Y);
             CursorState = CursorState.Grabbed;
             
             GL.Enable(EnableCap.CullFace);
             GL.FrontFace(FrontFaceDirection.Cw);
             GL.CullFace(CullFaceMode.Back);
+            
+            IsVisible = true;
         }
 
         protected override void OnRenderFrame(FrameEventArgs args)
@@ -181,48 +184,45 @@ namespace GraphicsEngine.Source
             Console.WriteLine($"[Debug] FPS: {(1f / args.Time).ToString("0.") + "\0"}");
             
             if (!IsFocused) return;
-
-            var input = KeyboardState;
-            float cameraSpeed = 3.75f * (input.IsKeyDown(Keys.LeftShift) ? 2.5f : 1);
+            
+            float cameraSpeed = 3.75f * (KeyboardState.IsKeyDown(Keys.LeftShift) ? 2.5f : 1);
             const float sensitivity = 0.15f;
 
-            if (input.IsKeyDown(Keys.W))
+            if (KeyboardState.IsKeyDown(Keys.W))
             {
                 _camera.Position += _camera.Front * cameraSpeed * (float)args.Time;
             }
-            if (input.IsKeyDown(Keys.S))
+            if (KeyboardState.IsKeyDown(Keys.S))
             {
                 _camera.Position -= _camera.Front * cameraSpeed * (float)args.Time;
             }
-            if (input.IsKeyDown(Keys.A))
+            if (KeyboardState.IsKeyDown(Keys.A))
             {
                 _camera.Position -= _camera.Right * cameraSpeed * (float)args.Time;
             }
-            if (input.IsKeyDown(Keys.D))
+            if (KeyboardState.IsKeyDown(Keys.D))
             {
                 _camera.Position += _camera.Right * cameraSpeed * (float)args.Time;
             }
-            if (input.IsKeyDown(Keys.Space))
+            if (KeyboardState.IsKeyDown(Keys.Space))
             {
                 _camera.Position += _camera.Up * cameraSpeed * (float)args.Time;
             }
-            if (input.IsKeyDown(Keys.LeftControl))
+            if (KeyboardState.IsKeyDown(Keys.LeftControl))
             {
                 _camera.Position -= _camera.Up * cameraSpeed * (float)args.Time;
             }
 
-            var mouse = MouseState;
-
             if (_firstMove)
             {
-                _lastPos = new Vector2(mouse.X, mouse.Y);
+                _lastPos = new Vector2(MouseState.X, MouseState.Y);
                 _firstMove = false;
             }
             else
             {
-                var deltaX = mouse.X - _lastPos.X;
-                var deltaY = mouse.Y - _lastPos.Y;
-                _lastPos = new Vector2(mouse.X, mouse.Y);
+                var deltaX = MouseState.X - _lastPos.X;
+                var deltaY = MouseState.Y - _lastPos.Y;
+                _lastPos = new Vector2(MouseState.X, MouseState.Y);
                 
                 _camera.Yaw += deltaX * sensitivity;
                 _camera.Pitch -= deltaY * sensitivity;
@@ -238,37 +238,59 @@ namespace GraphicsEngine.Source
 
         protected override void OnKeyDown(KeyboardKeyEventArgs args)
         {
-            base.OnKeyDown(args);
+	        base.OnKeyDown(args);
 
-            if (KeyboardState.IsKeyDown(Keys.Escape))
-            {
-                Close();
-            }
-            if (KeyboardState.IsKeyDown(Keys.F11))
-            {
-                WindowState = WindowState switch
-                {
-                    WindowState.Fullscreen => WindowState.Normal,
-                    _ => WindowState.Fullscreen
-                };
-            }
-            if (KeyboardState.IsKeyDown(Keys.F3))
-            {
-	            if (_wireframe == true)
-	            {
-		            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
-		            Console.WriteLine($"[Debug] Wireframe rendering: Enabled");
-		            Wait(75);
-		            _wireframe = false;
-	            }
-	            else
-	            {
-		            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-		            Console.WriteLine($"[Debug] Wireframe rendering: Disabled");
-		            Wait(75);
-		            _wireframe = true;
-	            }
-            }
+	        if (KeyboardState.IsKeyDown(Keys.Escape)) Close(); // Window close
+	        
+	        if (KeyboardState.IsKeyPressed(Keys.F11)) // Window fullscreen
+	        {
+		        WindowState = WindowState switch
+		        {
+			        WindowState.Fullscreen => WindowState.Normal,
+			        _ => WindowState.Fullscreen
+		        };
+	        }
+
+	        if (KeyboardState.IsKeyPressed(Keys.F3)) // Debug mode (Wireframe)
+	        {
+		        if (_wireframe == true)
+		        {
+			        GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+			        Console.WriteLine($"[Debug] Wireframe rendering: Enabled");
+			        _wireframe = false;
+		        }
+		        else
+		        {
+			        GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
+			        Console.WriteLine($"[Debug] Wireframe rendering: Disabled");
+			        _wireframe = true;
+		        }
+	        }
+
+	        if (KeyboardState.IsKeyPressed(Keys.F2)) // Window V-sync
+	        {
+		        if (VSync == VSyncMode.On)
+		        {
+			        VSync = VSyncMode.Adaptive;
+			        Console.WriteLine("[Debug] VSync: Adaptive");
+		        }
+
+		        if (VSync == VSyncMode.On)
+		        {
+			        VSync = VSyncMode.Adaptive;
+			        Console.WriteLine("[Debug] VSync: Adaptive");
+		        }
+		        else if (VSync == VSyncMode.Adaptive)
+		        {
+			        VSync = VSyncMode.Off;
+			        Console.WriteLine("[Debug] VSync: Off");
+		        }
+		        else
+		        {
+			        VSync = VSyncMode.On;
+			        Console.WriteLine("[Debug] VSync: On");
+		        }
+	        }
         }
 
         protected override void OnFramebufferResize(FramebufferResizeEventArgs args)
@@ -297,11 +319,6 @@ namespace GraphicsEngine.Source
             Console.WriteLine("\n" + " -- Graphics Engine process ended! -- ");
 
             base.OnUnload();
-        }
-
-        private async Task Wait(int milliseconds)
-        {
-	        await Task.Delay(milliseconds);
         }
     }
 }

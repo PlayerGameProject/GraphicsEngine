@@ -1,7 +1,5 @@
-﻿using System.Drawing;
+﻿using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using OpenTK.Graphics;
-using OpenTK.Input;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
@@ -13,13 +11,16 @@ namespace GraphicsEngine.Source
         {
             var nativeWindowSettings = new NativeWindowSettings
             {
-                API = ContextAPI.OpenGL,
-                Profile = ContextProfile.Core,
                 ClientSize = new Vector2i(640, 480),
-                Vsync = VSyncMode.Adaptive,
                 Title = "Graphics Engine",
+                API = ContextAPI.OpenGL,
+                APIVersion = new Version(3, 3),
+                Profile = ContextProfile.Core,
+                Vsync = VSyncMode.Adaptive,
                 WindowState = WindowState.Normal,
                 WindowBorder = WindowBorder.Resizable,
+                StartFocused = true,
+                StartVisible = false,
                 Flags = ContextFlags.ForwardCompatible,
             };
 
