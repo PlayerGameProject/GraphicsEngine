@@ -75,12 +75,12 @@ namespace GraphicsEngine.Source
 
         private readonly string[] _texturePath = new string[]
         {
-			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Stone Texture Side.png",
-			EngineDirectory + "/Resource/Texture/Stone Texture Top.png",
-			EngineDirectory + "/Resource/Texture/Stone Texture Bottom.png"
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Side.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Top.png",
+			EngineDirectory + "/Resource/Texture/Grass Texture Bottom.png"
         };
 
         private int _vertexArrayObject;
@@ -107,7 +107,7 @@ namespace GraphicsEngine.Source
         {
             base.OnLoad();
             
-            Console.WriteLine(" -- Graphics Engine process started! -- " + "\n");
+            Console.WriteLine(" -- Graphics Engine process has started! -- " + "\n");
             
             Color aqua = Color.Aqua;
             GL.ClearColor(aqua.R, aqua.G, aqua.B, aqua.A);
@@ -162,8 +162,8 @@ namespace GraphicsEngine.Source
             _shader.Activate();
 
             var model = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(0f, 0f, 0f)) 
-                                         * Matrix4.CreateScale(1f) 
-                                         * Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
+                                         * Matrix4.CreateScale(1f);
+                                         //* Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
             _shader.SetMatrix4("Model", model);
             _shader.SetMatrix4("View", _camera.GetViewMatrix());
             _shader.SetMatrix4("Projection", _camera.GetPerspectiveProjectionMatrix());
@@ -316,7 +316,7 @@ namespace GraphicsEngine.Source
             GL.DeleteBuffer(_elementArrayObject);
             _shader.Delete();
             
-            Console.WriteLine("\n" + " -- Graphics Engine process ended! -- ");
+            Console.WriteLine("\n" + " -- Graphics Engine process has ended! -- ");
 
             base.OnUnload();
         }
