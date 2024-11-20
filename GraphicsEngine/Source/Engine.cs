@@ -14,63 +14,63 @@ namespace GraphicsEngine.Source
     {
         private readonly float[] _vertices = new float[]
         {
-   			// Position           // Color           // Texture
-			-1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Front Face Top Left
-			 1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Front Face Top Right
-			 1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Front Face Bottom Right
-			-1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Front Face Bottom Left
-			 			   
-			-1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Right Face Top Left
-			-1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Right Face Top Right
-			-1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Right Face Bottom Right
-			-1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // Right Face Bottom Left
-			 			   
-			 1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  // Back Face Top Left
-			-1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Back Face Top Right
-			-1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  1.0f, 0.0f,  // Back Face Bottom Right
-			 1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Back Face Bottom Left
-			 			   
-			 1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Left Face Top Left
-			 1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Left Face Top Right
-			 1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Left Face Bottom Right
-			 1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Left Face Bottom Left
-			 			   
-			-1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Top Face Top Left
-			 1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Top Face Top Right
-			 1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Top Face Bottom Right
-			-1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // Top Face Bottom Left
-			 			   
-			-1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Bottom Face top Left
-			 1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 1.0f,  // Bottom Face top Right
-			 1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Bottom Face Bottom Right
-			-1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f   // Bottom Face Bottom Left
+            // Position           // Color           // Texture
+            -1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Front Face Top Left
+             1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Front Face Top Right
+             1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Front Face Bottom Right
+            -1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Front Face Bottom Left
+             			   
+            -1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Right Face Top Left
+            -1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Right Face Top Right
+            -1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Right Face Bottom Right
+            -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f,  // Right Face Bottom Left
+             			   
+             1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  // Back Face Top Left
+            -1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  1.0f, 1.0f,  // Back Face Top Right
+            -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  1.0f, 0.0f,  // Back Face Bottom Right
+             1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Back Face Bottom Left
+             			   
+             1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Left Face Top Left
+             1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Left Face Top Right
+             1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Left Face Bottom Right
+             1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  0.0f, 0.0f,  // Left Face Bottom Left
+             			   
+            -1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // Top Face Top Left
+             1.0f,  1.0f, -1.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  // Top Face Top Right
+             1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Top Face Bottom Right
+            -1.0f,  1.0f,  1.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // Top Face Bottom Left
+             			   
+            -1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Bottom Face top Left
+             1.0f, -1.0f,  1.0f,  0.0f, 1.0f, 0.0f,  1.0f, 1.0f,  // Bottom Face top Right
+             1.0f, -1.0f, -1.0f,  1.0f, 1.0f, 0.0f,  1.0f, 0.0f,  // Bottom Face Bottom Right
+            -1.0f, -1.0f, -1.0f,  0.0f, 0.0f, 0.0f,  0.0f, 0.0f   // Bottom Face Bottom Left
         };
 
         private readonly uint[] _indices = new uint[]
         {
-   			// Front Face
-			 0,  1,  3,
-			 1,  2,  3,
-   			
-			// Right Face
-			 4,  5,  7,
-			 5,  6,  7,
-   			
-			// Back Face
-			 8,  9, 11,
-			 9, 10, 11,
-   			
-			// Left Face
-			12, 13, 15,
-			13, 14, 15,
-   			
-			// Top Face
-			16, 17, 19,
-			17, 18, 19,
-   			
-			// Bottom Face
-			20, 21, 23,
-			21, 22, 23
+            // Front Face
+             0,  1,  3,
+             1,  2,  3,
+               
+            // Right Face
+             4,  5,  7,
+             5,  6,  7,
+               
+            // Back Face
+             8,  9, 11,
+             9, 10, 11,
+               
+            // Left Face
+            12, 13, 15,
+            13, 14, 15,
+               
+            // Top Face
+            16, 17, 19,
+            17, 18, 19,
+               
+            // Bottom Face
+            20, 21, 23,
+            21, 22, 23
         };
 
         private readonly string[] _texturePath = new string[]
