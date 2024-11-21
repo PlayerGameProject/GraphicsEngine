@@ -75,36 +75,36 @@ namespace GraphicsEngine.Source
         
         private readonly float[] _lightVertices = new float[]
         {
-            // Position           // Color           // Texture
-            -1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Front Face Top Left
-             1.0f,  1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Front Face Top Right
-             1.0f, -1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Front Face Bottom Right
-            -1.0f, -1.0f,  1.0f,  1.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Front Face Bottom Left
+            // Position
+            -1.0f,  1.0f,  1.0f,  // Front Face Top Left
+             1.0f,  1.0f,  1.0f,  // Front Face Top Right
+             1.0f, -1.0f,  1.0f,  // Front Face Bottom Right
+            -1.0f, -1.0f,  1.0f,  // Front Face Bottom Left
              			   
-            -1.0f,  1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Right Face Top Left
-            -1.0f,  1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Right Face Top Right
-            -1.0f, -1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Right Face Bottom Right
-            -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Right Face Bottom Left
-
-             1.0f,  1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Back Face Top Left
-            -1.0f,  1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Back Face Top Right
-            -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Back Face Bottom Right
-             1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Back Face Bottom Left
-
-             1.0f,  1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Left Face Top Left
-             1.0f,  1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Left Face Top Right
-             1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Left Face Bottom Right
-             1.0f, -1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Left Face Bottom Left
-
-            -1.0f,  1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Top Face Top Left
-             1.0f,  1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Top Face Top Right
-             1.0f,  1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Top Face Bottom Right
-            -1.0f,  1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // Top Face Bottom Left
-
-            -1.0f, -1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 1.0f,  // Bottom Face top Left
-             1.0f, -1.0f,  1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // Bottom Face top Right
-             1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // Bottom Face Bottom Right
-            -1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f,  0.0f, 0.0f   // Bottom Face Bottom Left
+            -1.0f,  1.0f, -1.0f,  // Right Face Top Left
+            -1.0f,  1.0f,  1.0f,  // Right Face Top Right
+            -1.0f, -1.0f,  1.0f,  // Right Face Bottom Right
+            -1.0f, -1.0f, -1.0f,  // Right Face Bottom Left
+								  
+             1.0f,  1.0f, -1.0f,  // Back Face Top Left
+            -1.0f,  1.0f, -1.0f,  // Back Face Top Right
+            -1.0f, -1.0f, -1.0f,  // Back Face Bottom Right
+             1.0f, -1.0f, -1.0f,  // Back Face Bottom Left
+								  
+             1.0f,  1.0f,  1.0f,  // Left Face Top Left
+             1.0f,  1.0f, -1.0f,  // Left Face Top Right
+             1.0f, -1.0f, -1.0f,  // Left Face Bottom Right
+             1.0f, -1.0f,  1.0f,  // Left Face Bottom Left
+								  
+            -1.0f,  1.0f, -1.0f,  // Top Face Top Left
+             1.0f,  1.0f, -1.0f,  // Top Face Top Right
+             1.0f,  1.0f,  1.0f,  // Top Face Bottom Right
+            -1.0f,  1.0f,  1.0f,  // Top Face Bottom Left
+								  
+            -1.0f, -1.0f,  1.0f,  // Bottom Face top Left
+             1.0f, -1.0f,  1.0f,  // Bottom Face top Right
+             1.0f, -1.0f, -1.0f,  // Bottom Face Bottom Right
+            -1.0f, -1.0f, -1.0f   // Bottom Face Bottom Left
         };
         
         private readonly uint[] _lightIndices = new uint[]
@@ -155,6 +155,7 @@ namespace GraphicsEngine.Source
         private Camera _camera;
         
         // Light
+        private Vector3 _lightColor = new Vector3(1f, 1f, 1f);
         private readonly Vector3 _lightPosition = new Vector3(2.5f, 2.5f, 2.5f);
         
         private int _vaoLight;
@@ -236,14 +237,8 @@ namespace GraphicsEngine.Source
 	            GL.BufferData(BufferTarget.ElementArrayBuffer, _lightIndices.Length * sizeof(uint), _lightIndices,
 		            BufferUsageHint.StaticDraw);
 	            
-	            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float), 0);
+	            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
 	            GL.EnableVertexAttribArray(0);
-	            GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, 8 * sizeof(float),
-		            3 * sizeof(float));
-	            GL.EnableVertexAttribArray(1);
-	            GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 8 * sizeof(float),
-		            6 * sizeof(float));
-	            GL.EnableVertexAttribArray(2);
             }
 
             _camera = new Camera(Vector3.UnitZ * 4, Size.X / (float)Size.Y);
@@ -266,16 +261,18 @@ namespace GraphicsEngine.Source
 
             GL.BindVertexArray(_vao);
             _texture.Bind();
-            _lightShader.Activate();
+            _shader.Activate();
+
+            _lightColor = new Vector3(1f, 1f, 1f);
 
             var model = Matrix4.Identity * Matrix4.CreateTranslation(new Vector3(0f, 0f, 0f)) 
                                          * Matrix4.CreateScale(1f);
                                          //* Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(_time));
-            _lightShader.SetMatrix4("Model", model);
-            _lightShader.SetMatrix4("View", _camera.GetViewMatrix());
-            _lightShader.SetMatrix4("Projection", _camera.GetPerspectiveProjectionMatrix());
-
-            _lightShader.SetVector3("LightColor", new Vector3(1f, 1f, 1f));
+            _shader.SetMatrix4("Model", model);
+            _shader.SetMatrix4("View", _camera.GetViewMatrix());
+            _shader.SetMatrix4("Projection", _camera.GetPerspectiveProjectionMatrix());
+            
+            _shader.SetVector3("LightColor", _lightColor);
 
             for (int i = 0; i < _texturePath.Length; i++)
             {
@@ -284,7 +281,7 @@ namespace GraphicsEngine.Source
             }
 
             GL.BindVertexArray(_vaoLight);
-            _shader.Activate();
+            _lightShader.Activate();
 
             Matrix4 lightMatrix = Matrix4.CreateScale(0.25f);
             lightMatrix = lightMatrix * Matrix4.CreateTranslation(_lightPosition);
@@ -292,6 +289,8 @@ namespace GraphicsEngine.Source
             _lightShader.SetMatrix4("Model", lightMatrix);
             _lightShader.SetMatrix4("View", _camera.GetViewMatrix());
             _lightShader.SetMatrix4("Projection", _camera.GetPerspectiveProjectionMatrix());
+            
+            _lightShader.SetVector3("LightColor", _lightColor);
             
             GL.DrawElementsInstanced(PrimitiveType.Triangles, _lightIndices.Length, DrawElementsType.UnsignedInt, 0, 1);
             
@@ -306,7 +305,7 @@ namespace GraphicsEngine.Source
             
             if (!IsFocused) return;
             
-            float cameraSpeed = 3.75f * (KeyboardState.IsKeyDown(Keys.LeftShift) ? 2.5f : 1);
+            float cameraSpeed = 5f * (KeyboardState.IsKeyDown(Keys.LeftShift) ? 2.5f : 1);
             const float sensitivity = 0.15f;
 
             if (KeyboardState.IsKeyDown(Keys.W))

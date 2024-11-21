@@ -8,6 +8,6 @@ Graphics Engine is a graphics rendering engine that supports rendering 3 Dimensi
 ### Features
 - 2D/3D rendering
 - Basic lighting
-- User input (Keyboard &​ Mouse)
+- User input (Keyboard & Mouse)
 
 This project is under MIT license. For more information, please read the LICENSE.txt.

@@ -6,6 +6,7 @@ layout (location = 2) in vec2 texture;
 
 out vec3 Color;
 out vec2 TextureCoordinate;
+out vec3 LightColor;
 
 uniform mat4 Model;
 uniform mat4 View;
