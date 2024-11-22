@@ -222,13 +222,11 @@ namespace GraphicsEngine.Source
 	            
 	            _vboLight = GL.GenBuffer();
 	            GL.BindBuffer(BufferTarget.ArrayBuffer, _vboLight);
-	            GL.BufferData(BufferTarget.ArrayBuffer, _lightVertices.Length * sizeof(float), _lightVertices,
-		            BufferUsageHint.StaticDraw);
+	            GL.BufferData(BufferTarget.ArrayBuffer, _lightVertices.Length * sizeof(float), _lightVertices, BufferUsageHint.StaticDraw);
 
 	            _eboLight = GL.GenBuffer();
 	            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _eboLight);
-	            GL.BufferData(BufferTarget.ElementArrayBuffer, _lightIndices.Length * sizeof(uint), _lightIndices,
-		            BufferUsageHint.StaticDraw);
+	            GL.BufferData(BufferTarget.ElementArrayBuffer, _lightIndices.Length * sizeof(uint), _lightIndices, BufferUsageHint.StaticDraw);
 	            
 	            GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
 	            GL.EnableVertexAttribArray(0);
