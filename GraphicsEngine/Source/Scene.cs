@@ -348,12 +348,12 @@ namespace GraphicsEngine.Source
 	        _camera.FOV -= args.OffsetY;
         }
 
-        public void Resize(FramebufferResizeEventArgs args, float aspectRatio, Vector2 size)
+        public void Resize(FramebufferResizeEventArgs args, Vector2 size)
         {
 	        GL.Viewport(0, 0, args.Width, args.Height);
 
-	        _camera.AspectRatio = aspectRatio;
-	        _camera._size = size;
+	        _camera.AspectRatio = size.X / (float)size.Y;
+	        _camera.Size = size;
         }
 
         public void Unload()

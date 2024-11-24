@@ -104,12 +104,12 @@ namespace GraphicsEngine.Source
             
             GL.Viewport(0, 0, args.Width, args.Height);
             
-            _scene.Resize(args, Size.X / (float)Size.Y, new Vector2(Size.X, Size.Y));
+            _scene.Resize(args, new Vector2(Size.X, Size.Y));
         }
 
         protected override void OnUnload()
         {
-	        Console.WriteLine("\n" + " -- Graphics Engine process has ended! -- ");
+	        Console.WriteLine("\n -- Graphics Engine process has ended! -- ");
 
 	        _scene.Unload();
             base.OnUnload();
