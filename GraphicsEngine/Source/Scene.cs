@@ -164,7 +164,7 @@ namespace GraphicsEngine.Source
         private Shader _lightShader;
         
         // Camera
-        private bool _firstMove = true;
+        private bool _moved = true;
         private Vector2 _lastPos;
         private double _time;
         
@@ -308,10 +308,10 @@ namespace GraphicsEngine.Source
 		        _camera.Position -= _camera.Up * cameraSpeed * (float)args.Time;
 	        }
 
-	        if (_firstMove)
+	        if (_moved)
 	        {
 		        _lastPos = new Vector2(mouseState.X, mouseState.Y);
-		        _firstMove = false;
+		        _moved = false;
 	        }
 	        else
 	        {

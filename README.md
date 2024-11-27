@@ -10,5 +10,14 @@ Graphics Engine is a graphics rendering engine that supports rendering 3 Dimensi
 - Basic lighting
 - User input (Keyboard & Mouse)
 
+### Todo Lists
+| Todo              | Process           |
+|-------------------|-------------------|
+| Advanced Lighting | Currently Working |
+| User Interface    | Planned           |
+| Audio             | Planned           |
+| Physics           | Planned           |
+(More coming soon)
+
 ### License
 This project is under MIT license. For more information, please read the LICENSE.txt.
