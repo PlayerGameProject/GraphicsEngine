@@ -10,6 +10,9 @@ Graphics Engine is a graphics rendering engine that supports rendering 3 Dimensi
 - Basic lighting
 - User input (Keyboard & Mouse)
 
+### Build From Source
+- Using C# .NET version 8.0 and you should be ready to go. (Other versions of .NET may or may not work)​
+
 ### Todo Lists
 | Todo              | Process           |
 |-------------------|-------------------|
